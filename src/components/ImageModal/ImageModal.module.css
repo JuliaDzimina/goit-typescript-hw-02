@@ -1,0 +1,13 @@
+.img {
+  max-width: 400px;
+  object-fit: cover;
+}
+
+.boxInfo {
+  font-size: 18px;
+  background-color: rgba(235, 230, 230, 0.562);
+  border-radius: 8px;
+  text-align: center;
+  color: azure;
+  font-weight: 600;
+}
