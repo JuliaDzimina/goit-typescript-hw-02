@@ -14,13 +14,15 @@ function App() {
   const [images, setImages] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
-  const [query, setQuery] = useState(" ");
+  const [query, setQuery] = useState("");
   const [page, setPage] = useState(1);
   const [isOpen, setIsOpen] = useState(false);
   const [selectedImage, setSelectedImage] = useState({});
 
   useEffect(() => {
-    if (!query) return;
+    if (query === "") {
+      return;
+    }
 
     async function fetchImages() {
       try {
