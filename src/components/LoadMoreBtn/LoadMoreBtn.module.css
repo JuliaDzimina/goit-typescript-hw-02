@@ -2,8 +2,8 @@
   width: 200px;
   height: 50px;
   font-size: 18px;
-  background-color: rgb(48, 112, 231);
-  color: white;
+  background-color: rgba(34, 139, 34, 0.642);
+  color: rgb(0, 0, 0);
   border: 1px solid black;
   border-radius: 8px;
 }
