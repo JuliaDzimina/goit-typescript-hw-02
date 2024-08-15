@@ -1,6 +1,11 @@
+import { Image } from "../../services/type";
 import css from "./ImageCard.module.css";
 
-const ImageCard = ({ image }) => {
+interface ImageCardProps {
+  image: Image;
+}
+
+const ImageCard: React.FC<ImageCardProps> = ({ image }) => {
   return (
     <div>
       <img

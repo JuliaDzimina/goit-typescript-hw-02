@@ -10,24 +10,31 @@ import LoadMoreBtn from "../LoadMoreBtn/LoadMoreBtn";
 import Loader from "../Loader/Loader";
 import ErrorMessage from "../ErrorMessage/ErrorMessage";
 
+import { Image } from "../../services/type";
+
+interface Results {
+  results: Image[];
+  total_pages: number;
+}
+
 function App() {
-  const [images, setImages] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [isError, setIsError] = useState(false);
-  const [query, setQuery] = useState("");
-  const [page, setPage] = useState(1);
-  const [isOpen, setIsOpen] = useState(false);
-  const [selectedImage, setSelectedImage] = useState({});
+  const [images, setImages] = useState<Image[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isError, setIsError] = useState<boolean>(false);
+  const [query, setQuery] = useState<string>("");
+  const [page, setPage] = useState<number>(1);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [selectedImage, setSelectedImage] = useState<Image | null>(null);
 
   useEffect(() => {
     if (query === "") {
       return;
     }
 
-    async function fetchImages() {
+    async function fetchImages(): Promise<void> {
       try {
         setIsLoading(true);
-        const data = await getImages(query, page);
+        const data: Results = await getImages(query, page);
         if (!data.results.length) {
           toast.error("No images found. Try another request");
         }
@@ -41,21 +48,21 @@ function App() {
     fetchImages();
   }, [query, page]);
 
-  const handleSearch = (data) => {
+  const handleSearch = (data: string): void => {
     setQuery(data);
     setImages([]);
     setPage(1);
   };
 
-  const onLoadMore = () => {
+  const onLoadMore = (): void => {
     setPage(page + 1);
   };
 
-  const openModal = (image) => {
+  const openModal = (image: Image): void => {
     setIsOpen(true);
     setSelectedImage(image);
   };
-  const closeModal = () => setIsOpen(false);
+  const closeModal = (): void => setIsOpen(false);
 
   return (
     <>
@@ -65,7 +72,7 @@ function App() {
       <ImageGallery images={images} onOpen={openModal} />
       {images.length > 0 && <LoadMoreBtn onLoadMore={onLoadMore} />}
 
-      {selectedImage.urls && (
+      {selectedImage && (
         <ImageModal isOpen={isOpen} onClose={closeModal} data={selectedImage} />
       )}
       <Toaster position="top-left" />
